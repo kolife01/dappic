@@ -199,7 +199,10 @@ var router = new VueRouter({
       path: '/user/:itemId',
       name:'user',
       component: {
-        template: '<div>ユーザーIDは {{ $route.params.itemId }}</div><div>{{ name }}</div>'
+        template: `
+        <div>ユーザーIDは {{ $route.params.itemId }}</div><div>{{ name }}</div>
+        <router-link to="/market">戻る</router-link>
+        `
       }
     }
   ]
