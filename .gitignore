@@ -1,0 +1,6 @@
+.DS_Store
+memo
+*.env
+node_modules
+semantic
+package-lock.json

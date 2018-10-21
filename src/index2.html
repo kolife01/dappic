@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Weather Forcast</h1>
+  <div id="app" class="weather_box">
+    <div class="weather_info">
+      <p class="weather_city">{{ city }}</p>
+      <p class="weather_condition">{{ condition.main }}</p>
+      <p class="weather_temp">{{ temp }}</p>
+      <img v-bind:src="image">
+    </div>
+    <p v-if="condition.main == 'Rain'"><img src="img/rain.jpg" alt="Rainy">rain</p>
+    <p v-else-if="condition.main == 'Clouds'"><img src="img/cloudy.jpg" alt="Cloudy">cloudy</p>
+    <p v-else-if="condition.main == 'Clear'"><img src="img/sunny.jpg" alt="Sunny">sunny</p>
+    <p v-else><img src="img/sunset.jpg" alt="Sunset"></p>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/vue.router/2.0.1/vue-router.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+
+
+  var app = new Vue({
+  el: '#app',
+  data: {
+    city: null, //地域名
+    temp: null, //気温
+    image: null,
+    condition: {
+      main: null //天候名
+    }
+  },
+  mounted: function(){
+  //  axios.get('https://api.openweathermap.org/data/2.5/weather?q=Osaka,jp&units=metric&appid=22239dbf65a8a64185bed8f33f836e34')
+   axios.get('https://ipfs.io/ipfs/QmcWkBA2xXLwTU6NeAj3LikQeAZMPBMmcLrvkvv5uuboNj')
+   .then(function(response){
+     this.city = response.data.name
+     this.temp = response.data.description
+     this.image = response.data.image
+   }.bind(this))
+   .catch(function(error){
+     console.log(error)
+   })
+ }
+})
+
+
+</script>
+</body>
+</html>
