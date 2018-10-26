@@ -1,12 +1,11 @@
 
-window.addEventListener('load', function () {
-    checkweb3()
-    startApp()
-    // startMarket()
-    // $('.segment').dimmer('show');
-    // $('.segment').dimmer('hide');
 
-})
+
+function test(){
+    $('.segment').dimmer('show');
+    $('.segment').dimmer('hide');
+
+}
 
 
 //スマートコントラクト部
@@ -19,11 +18,15 @@ async function token(){
     sampleResolve();
   const result = userAccount;
   console.log(2)
-  const img_url = await readFile(this);
-  const url = await ipfs_test(img_url);
+    const img_url = await readFile(this);
+//  const url = await ipfs_test(img_url);
+    const name = document.getElementById('e_name').value;
+    const description = document.getElementById('e_desc').value;
+
+    console.log(img_url,name,description)
   
   
-  contract.methods.mintTokenCollection(url)
+  contract.methods.mintpicture(img_url,name,description)
       .send({ from: result, gasLimit: "340000" })
       .on("transactionHash", function (_receipt) {
           alert("Now your Token Collection is being published. txhash:" + _receipt);
@@ -69,52 +72,4 @@ function readFile(input) {
       $('.segment').dimmer('hide');
   }
   })
-}
-
-//IPFSにトークンURIを登録
-function ipfs_test(img_url){
-  return new Promise(resolve => {
-  
-  var e_name = document.getElementById('e_name').value;
-  var e_desc = document.getElementById('e_desc').value;
-//   console.log(e_name);
-//   console.log(e_desc);
-  
-  var text ='{\n'
-  +'"name": "'+ e_name +'",\n'
-  +'"image": "' + img_url + '",\n'
-  + '"description": "'+ e_desc + '"\n'
-  +'}'  
-  
-  console.log(text);
-  var buf = buffer.Buffer(string_to_utf8_bytes(text));
-  ipfs.add(buf, (err, result) => {
-          textHash = result[0].hash;
-          var url = "https://ipfs.io/ipfs/" + textHash;
-        //   message.innerHTML = "You can share your image by following link";
-
-          console.log("Metadata: " + url)
-          resolve(url)
-      });
-  })
-}
-
-function string_to_utf8_bytes(text){
-  var result = [];
-  if (text == null)
-      return result;
-  for (var i = 0; i < text.length; i++) {
-      var c = text.charCodeAt(i);
-      if (c <= 0x7f) {
-          result.push(c);
-      } else if (c <= 0x07ff) {
-          result.push(((c >> 6) & 0x1F) | 0xC0);
-          result.push((c & 0x3F) | 0x80);
-      } else {
-          result.push(((c >> 12) & 0x0F) | 0xE0);
-          result.push(((c >> 6) & 0x3F) | 0x80);
-          result.push((c & 0x3F) | 0x80);
-      }
-  }
-  return result;
 }

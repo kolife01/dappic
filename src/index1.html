@@ -23,7 +23,7 @@
             <div class="luxbar-menu luxbar-menu-right luxbar-menu-dark">
                 <ul class="luxbar-navigation">
                     <li class="luxbar-header">
-                        <router-link to="/top" class="luxbar-brand">Dappic</router-link>
+                        <router-link to="/" class="luxbar-brand">Dappic</router-link>
                         <label class="luxbar-hamburger luxbar-hamburger-doublespin" 
                         id="luxbar-hamburger" for="luxbar-checkbox"> <span></span> </label>
                     </li>
@@ -34,19 +34,31 @@
                 </ul>
             </div>
         </div>
+        <!-- <li v-for="n in even(numbers)">{{ n }}</li> -->
+        <!-- <li v-for="n in evenNumbers">{{ n }}</li> -->
+        
         
         <!-- リンク先を `to` プロパティに指定します -->
         <!-- デフォルトで <router-link> は `<a>` タグとしてレンダリングされます -->
         
         <div class="main_wrap">
-
+          
           <router-view></router-view>
           
         </div>
       </div>
 
-<script src="https://cdn.jsdelivr.net/vue/2.0.3/vue.min.js"></script>
-<script src="https://cdn.jsdelivr.net/vue.router/2.0.1/vue-router.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/vue/2.0.3/vue.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/vue.router/2.0.1/vue-router.min.js"></script> -->
+
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script> -->
+<!-- <script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script> -->
+
+<script src="https://unpkg.com/vue@2.4.2/dist/vue.min.js"></script>
+<script src="https://unpkg.com/vue-router@2.7.0/dist/vue-router.min.js"></script>
+
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="js/web3.min.js"></script>
 <script src="js/contract_abi.js"></script>
@@ -64,7 +76,8 @@ var router = new VueRouter({
   // コンポーネントオプションのオブジェクトでも構いません
   routes: [
     {
-      path: '/top',
+      path: '/',
+      
       component: {
         template: `
         <div class="top_container">
@@ -81,8 +94,8 @@ var router = new VueRouter({
                   <br>
                 <!-- <a href="/publish"><div class="ui huge primary button"> Get Started <i class="right arrow icon"></i></div></a> -->
             </div>
-        `
-        
+          </div>
+        ` 
       }
     },
     {
@@ -90,9 +103,9 @@ var router = new VueRouter({
       component: {
         template: `
             <div class="ui segment ">
-                <div class="ui active inverted dimmer">
-                    <div class="ui text loader">Load</div>
-                </div>
+              <div class="ui inverted dimmer">
+                <div class="ui text loader">ロード</div>
+              </div>
                    
                 <div class="wrap">
                     <form class="ui form">
@@ -126,7 +139,7 @@ var router = new VueRouter({
                         <!-- <button class="ui blue button" type="submit">出品する</button> -->
                         <div id="confirm" class="fluid ui teal button">Publish</div>
                         <br>
-                        <div class="fluid ui grey button">back</div>
+                        <div class="fluid ui grey button" >back</div>
                     </form>
                 </div>
             </div>
@@ -145,13 +158,17 @@ var router = new VueRouter({
           
             // checkweb3()
             // startApp()
-            // startMarket()
-            $('.segment').dimmer('show');
-            $('.segment').dimmer('hide');
+            // start_Publish()
             console.log('publish')
             next()
 
-      }
+      },
+      // afterEnter: function(to, from){
+      //   // $('.ui .active .inverted .dimmer').dimmer('hide');
+        
+      //   // $('.dimmer').dimmer('hide');
+      //   console.log('ok')
+      // }
     },
     
     {
@@ -162,15 +179,20 @@ var router = new VueRouter({
       },
       component: {
         template: `
-        <div class="">
-            <div id="pic_container">
-            <div v-for="item in items" v-bind:key="items.name" class="pic_img">  
-              <router-link :to="{ name:'show', params:{itemId: item.id}}"><img v-bind:src="item.image"  alt="" height="250" width="350"></router-link>
-            </div>
-            </div>
+        <div class="ui segment1 ">
+          <div class="ui inverted dimmer">
+            <div class="ui text loader">ロード</div>
+          </div>
+          <div class="">
+              <div id="pic_container">
+              <div v-for="item in items" v-bind:key="items.name" class="pic_img">
+                <router-link :to="{ name:'show', params:{itemId: item.id}}" class="item"><img v-bind:src="item.image"  alt="" height="250" width="350"></router-link>
+              </div>
+              </div>
+          </div>
         </div>
         `
-      },
+      }
     },
     {
       path: '/show/:itemId',
@@ -183,17 +205,63 @@ var router = new VueRouter({
           </div>
           <div class="img_detail">
             <div class="title">{{ items[$route.params.itemId].name }}</div>
-            <div class="owner" id="owner"><span>Owned by </span>0xdasdgas</div>
+            <div class="owner" id="owner"><span>Owned by </span>{{ items[$route.params.itemId].owner }}</div>
             <div class="description">{{ items[$route.params.itemId].description }}</div>
-            <div class="price">Ξ0.02</div>
-            <button id="buy" class="ui primary button">Buy now </button>
+            <div v-if="userAccount === items[$route.params.itemId].owner">
+              <div class="sell_msg">You can sell this token</div>
+              <div class="price">Ξ<span><input type="text" id=price_input value=""></span></div>
+              <button id="sell" class="ui primary button">sell</button>
+            </div>
+            <div v-else>
+              <div class="price">Ξ<span id=price_val>0.02</span></div>
+              <button id="buy" class="ui primary button">Buy now </button>
+            </div>
           </div>
-          <p>{{ $route.params.itemId }}</p>
+          <p id="number">{{ $route.params.itemId }}</p>
           <router-link to="/market">戻る</router-link>
         </div>
         `
       },
+      props: { 
+        name: 'itemId' 
+      },
       
+
+      beforeEnter: function(to, from, next){
+          console.log(name)
+          console.log(userAccount)
+          
+          next()
+
+      },
+      
+    },
+    {
+      path: '/mypage',
+      name:'mypage',
+      data: {
+          numbers: [ 1, 2, 3, 4, 5 ]
+        },
+      computed: {
+        evenNumbers: function () {
+          return this.numbers.filter(function (number) {
+            return number % 2 === 0
+          })
+        }
+      },
+      methods: {
+        even: function (numbers) {
+          return numbers.filter(function (number) {
+            return number % 2 === 0
+          })
+        }
+      },
+      component: {
+        template: `
+        <li v-for="n in evenNumbers">{{ n }}</li>
+        <router-link to="/market">戻る</router-link>
+        `
+      }
     },
     {
       path: '/user/:itemId',
@@ -213,44 +281,72 @@ var items =[]
 
 //NodeAPI取得出来たら空にする
 var data =[
-  "https://ipfs.io/ipfs/QmcWkBA2xXLwTU6NeAj3LikQeAZMPBMmcLrvkvv5uuboNj",
-  "https://ipfs.io/ipfs/QmcGdhvs3pj7RjP58TXn1v4A3j83Bg3z8LsmQ8Mk7FLvwu",
-  "https://ipfs.io/ipfs/QmcNTcEsRAvgVwH6JcGXXSrtzigF4wgd7fRM93eLgb4rsX",
-  "https://ipfs.io/ipfs/QmZxjbx6LmeYdWbRcQ89bFNeW2MfD6ouVjwZcLPwGgPAPE",
-  "https://ipfs.io/ipfs/QmPLdu9NTxbo6hUbV8XmercPSkXAkjvStFVcxC88qD4tBM",
-  "https://ipfs.io/ipfs/QmViUSvJm7jU3L4mM64b1BYj6WiWCECZ5Dj6oFXWDxUCLG",
-  "https://ipfs.io/ipfs/Qmdz3fnRuHsbVmswoDZGo4ZUQCCrmggD61fUE4xKKRVceH",
-  "https://ipfs.io/ipfs/QmQgFKWjBHGfaaXx8FXes1VKWsEQgdchLnPDrnBL2xa9Qe"
+  // "https://ipfs.io/ipfs/QmcWkBA2xXLwTU6NeAj3LikQeAZMPBMmcLrvkvv5uuboNj",
+  // "https://ipfs.io/ipfs/QmcGdhvs3pj7RjP58TXn1v4A3j83Bg3z8LsmQ8Mk7FLvwu",
+  // "https://ipfs.io/ipfs/QmcNTcEsRAvgVwH6JcGXXSrtzigF4wgd7fRM93eLgb4rsX",
+  // "https://ipfs.io/ipfs/QmZxjbx6LmeYdWbRcQ89bFNeW2MfD6ouVjwZcLPwGgPAPE",
+  // "https://ipfs.io/ipfs/QmPLdu9NTxbo6hUbV8XmercPSkXAkjvStFVcxC88qD4tBM",
+  // "https://ipfs.io/ipfs/QmViUSvJm7jU3L4mM64b1BYj6WiWCECZ5Dj6oFXWDxUCLG",
+  // "https://ipfs.io/ipfs/Qmdz3fnRuHsbVmswoDZGo4ZUQCCrmggD61fUE4xKKRVceH",
+  // "https://ipfs.io/ipfs/QmQgFKWjBHGfaaXx8FXes1VKWsEQgdchLnPDrnBL2xa9Qe"
 ]
 
 // ルーターのインスタンスをrootとなるVueインスタンスに渡します
 var app = new Vue({
+  // el: '#app',
   router: router,
+  // methods: {
+  //   even: function (numbers) {
+  //     return numbers.filter(function (number) {
+  //       return number % 2 === 0
+  //     })
+  //   },
+
+  // },
+  
+  // computed: {
+  //       evenNumbers: function () {
+  //         return this.numbers.filter(function (number) {
+  //           return number % 2 === 0
+  //         })
+  //       }
+  //     },
 
   
   mounted: function(){
-    //NodeのAPIからaxiosにてURIデータを一括で取得 dataに入れ込む
-    //その後この処理に続く
-    for(let i =0; i<data.length; i++){
+    $('.segment1').dimmer('show');
+    // axios.get('https://dappic-test.glitch.me/getData')
+    axios.get('http://localhost:3000/getData')
+    .then(function(response){
+      data = response.data
+      // console.log(data)
+
+      for(let i =0; i<data.length; i++){
           var n = data[i]
           console.log(n)
-          axios.get(n)
-          .then(function(response){
-            // const newdata = data;
             items.push({
               id: i,
-              name: response.data.name,
-              description: response.data.description,
-              image: response.data.image,
+              name: data[i].name,
+              description: data[i].description,
+              image: data[i].image,
+              publisher: data[i].publisher,
+              owner: data[i].owner
             })
-          }.bind(this))
-          .catch(function(error){
-            console.log(error)
-          })
         }
+        console.log(items)
+        // console.log(data)
+        $('.segment1').dimmer('hide');
+
+    }.bind(this))
+    .catch(function(error){
+      console.log(error)
+    })
+
   
 }
+// })
 }).$mount('#app')
+
 </script>
   
 </body>

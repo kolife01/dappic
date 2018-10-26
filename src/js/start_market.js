@@ -1,12 +1,4 @@
 
-// window.addEventListener('load', function () {
-//   checkweb3()
-//   startApp()
-//   startMarket()
-//   // $('.segment').dimmer('show');
-//   // $('.segment').dimmer('hide');
-
-// })
 
 //---------------- Market ----------------//
 // var data =[]
@@ -68,6 +60,70 @@ function market(){
     
   }
 }
+
+$(document).on("click", "#sell", function () {
+  var price_input = document.getElementById('price_input').value
+  var number = document.getElementById('number').innerText
+  price_input = price_input * 1000000000000000000
+  console.log(price_input)
+  console.log(number)
+  contract.methods.addSellingItem(number,price_input)
+        .send({ from: userAccount, gasLimit: "340000" })
+        .on("transactionHash", function (_receipt) {
+            alert("Now your picture is being sellingItem. txhash:" + _receipt);
+            console.log("txhash: " + _receipt)
+        })
+        .on("receipt", function (_receipt) {
+            console.log(_receipt);
+        })
+        .on("error", function (_error) {
+            console.log(_error);
+        })
+        $('.segment').dimmer('hide');
+});
+
+$(document).on("click", "#buy", function () {
+  var price_val = document.getElementById('price_val').innerText
+  var number = document.getElementById('number').innerText
+  price_val = price_val * 1000000000000000000
+  console.log(price_val)
+  console.log(number)
+  contract.methods.purchaseSellingItem(number)
+        .send({ from: userAccount, gasLimit: "340000", value: price_val })
+        .on("transactionHash", function (_receipt) {
+            alert("Purchasing process in progress. txhash:" + _receipt);
+            console.log("txhash: " + _receipt)
+        })
+        .on("receipt", function (_receipt) {
+            console.log(_receipt);
+        })
+        .on("error", function (_error) {
+            console.log(_error);
+        })
+        $('.segment').dimmer('hide');
+
+});
+
+$(document).on("click", "#cancel", function () {
+  
+  var number = document.getElementById('number').innerText
+  
+  console.log(number)
+  contract.methods.cancelSellingItem(number)
+        .send({ from: userAccount, gasLimit: "340000" })
+        .on("transactionHash", function (_receipt) {
+            alert("Canceling process in progress. txhash:" + _receipt);
+            console.log("txhash: " + _receipt)
+        })
+        .on("receipt", function (_receipt) {
+            console.log(_receipt);
+        })
+        .on("error", function (_error) {
+            console.log(_error);
+        })
+        $('.segment').dimmer('hide');
+
+});
 
 
 
