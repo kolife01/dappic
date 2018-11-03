@@ -4,3 +4,5 @@ memo
 node_modules
 semantic
 package-lock.json
+.firebaserc
+firebase.json

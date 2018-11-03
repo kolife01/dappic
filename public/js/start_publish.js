@@ -10,7 +10,17 @@ function test(){
 
 //スマートコントラクト部
 $(document).on("click", "#confirm", function () {
+    // onButtonClick()
+    //checkboxがなぜか取得出来ない
+    // var check1 = document.form.checkbox.checked;
+    // if(check1 == true){
+    //     token(); 
+    // }else{
+    //     alert('利用規約にチェックしてください')
+    // }
+
     token(); 
+    
 });
 
 async function token(){
@@ -27,7 +37,7 @@ async function token(){
   
   
   contract.methods.mintpicture(img_url,name,description)
-      .send({ from: result, gasLimit: "340000" })
+      .send({ from: result, gasLimit: "500000" })
       .on("transactionHash", function (_receipt) {
           alert("Now your Token Collection is being published. txhash:" + _receipt);
           console.log("txhash: " + _receipt)
@@ -73,3 +83,38 @@ function readFile(input) {
   }
   })
 }
+
+
+$('.field.example form')
+  .form({
+    fields: {
+      checkbox: {
+        identifier  : 'checkbox',
+        rules: [
+          {
+            type   : 'checked',
+            prompt : 'Please check the checkbox'
+          }
+        ]
+      }
+    }
+  });
+
+
+  function onButtonClick() {
+    check1 = document.form1.Checkbox1.checked;
+    check2 = document.form1.Checkbox2.checked;
+
+    target = document.getElementById("output");
+    if (check1 == true) {
+        
+      target.innerHTML = "チェック項目1がチェックされています。<br/>";
+    } else {
+      target.innerHTML = "チェック項目1がチェックされていません。<br/>";
+    }
+    if (check2 == true) {
+      target.innerHTML += "チェック項目2がチェックされています。<br/>";
+    } else {
+      target.innerHTML += "チェック項目2がチェックされていません。<br/>";
+    }
+  }

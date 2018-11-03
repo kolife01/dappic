@@ -65,16 +65,27 @@ $(document).on("click", "#sell", function () {
   var price_input = document.getElementById('price_input').value
   var number = document.getElementById('number').innerText
   price_input = price_input * 1000000000000000000
+  var id = Number(number) + 1
   console.log(price_input)
-  console.log(number)
-  contract.methods.addSellingItem(number,price_input)
+  console.log(id)
+  contract.methods.addSellingItem(id,price_input)
         .send({ from: userAccount, gasLimit: "340000" })
         .on("transactionHash", function (_receipt) {
             alert("Now your picture is being sellingItem. txhash:" + _receipt);
             console.log("txhash: " + _receipt)
+            //とりあえずトランザクション処理前に変更する
+            //トランザクション承認前に次の処理が行われた場合はエラーになる
+            //リロードすれば正しいデータ情報取得出来るのでとりあえずよしとする
+            items[number].price = price_input/ 1000000000000000000;
+            items[number].seller = userAccount;
+            //リロード代わりの処理
+            router.push('/market')
+            router.push('/show/' +number)
+
         })
         .on("receipt", function (_receipt) {
             console.log(_receipt);
+            
         })
         .on("error", function (_error) {
             console.log(_error);
@@ -86,13 +97,19 @@ $(document).on("click", "#buy", function () {
   var price_val = document.getElementById('price_val').innerText
   var number = document.getElementById('number').innerText
   price_val = price_val * 1000000000000000000
+  var id = Number(number) + 1
   console.log(price_val)
-  console.log(number)
-  contract.methods.purchaseSellingItem(number)
+  console.log(id)
+  contract.methods.purchaseSellingItem(id)
         .send({ from: userAccount, gasLimit: "340000", value: price_val })
         .on("transactionHash", function (_receipt) {
             alert("Purchasing process in progress. txhash:" + _receipt);
             console.log("txhash: " + _receipt)
+            items[number].price = 0;
+            items[number].seller = '';
+            //リロード代わりの処理
+            router.push('/market')
+            router.push('/show/' +number)
         })
         .on("receipt", function (_receipt) {
             console.log(_receipt);
@@ -107,13 +124,19 @@ $(document).on("click", "#buy", function () {
 $(document).on("click", "#cancel", function () {
   
   var number = document.getElementById('number').innerText
-  
-  console.log(number)
-  contract.methods.cancelSellingItem(number)
+  var id = Number(number) + 1
+  console.log(id)
+  contract.methods.cancelSellingItem(id)
         .send({ from: userAccount, gasLimit: "340000" })
         .on("transactionHash", function (_receipt) {
             alert("Canceling process in progress. txhash:" + _receipt);
             console.log("txhash: " + _receipt)
+            items[number].price = 0;
+            items[number].seller = '';
+            //リロード代わりの処理
+            router.push('/market')
+            router.push('/show/' +number)
+            
         })
         .on("receipt", function (_receipt) {
             console.log(_receipt);
@@ -121,10 +144,15 @@ $(document).on("click", "#cancel", function () {
         .on("error", function (_error) {
             console.log(_error);
         })
+
         $('.segment').dimmer('hide');
 
 });
 
-
+$(document).on("click", "#test", function () {
+    console.log(1)
+    router.push('/market')
+    router.push('/show/' +1)
+})
 
 

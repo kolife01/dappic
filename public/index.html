@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/balzss/luxbar/ae5835e2/build/luxbar.min.css">
+  <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <script
+    src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+  <script src="semantic/dist/semantic.min.js"></script>
+  <title>Dappic</title>
+</head>
+<body>
+    
+    <div id="app">
+        <div id="luxbar" class="luxbar-fixed">
+            <input type="checkbox" class="luxbar-checkbox" id="luxbar-checkbox"/>
+            <div class="luxbar-menu luxbar-menu-right luxbar-menu-dark">
+                <ul class="luxbar-navigation">
+                    <li class="luxbar-header">
+                        <router-link to="/" class="luxbar-brand">Dappic</router-link>
+                        <label class="luxbar-hamburger luxbar-hamburger-doublespin" 
+                        id="luxbar-hamburger" for="luxbar-checkbox"> <span></span> </label>
+                    </li>
+                    <li class="luxbar-item"><router-link to="/publish">Publish</router-link></li>
+                    <li class="luxbar-item"><router-link to="/market">Market</router-link></li>
+                    <li class="luxbar-item"><router-link to="/mypage">Mypage</router-link></li>
+                    <li class="luxbar-item"><a href="/init">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- <li v-for="n in even(numbers)">{{ n }}</li> -->
+        <!-- <li v-for="n in evenNumbers">{{ n }}</li> -->
+        
+        
+        <!-- リンク先を `to` プロパティに指定します -->
+        <!-- デフォルトで <router-link> は `<a>` タグとしてレンダリングされます -->
+        
+        <div class="main_wrap">
+          
+          <router-view></router-view>
+          
+        </div>
+
+        
+    </div>
+
+<!-- <script src="https://cdn.jsdelivr.net/vue/2.0.3/vue.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/vue.router/2.0.1/vue-router.min.js"></script> -->
+
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script> -->
+<!-- <script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script> -->
+
+<script src="https://unpkg.com/vue@2.4.2/dist/vue.min.js"></script>
+<script src="https://unpkg.com/vue-router@2.7.0/dist/vue-router.min.js"></script>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="js/web3.min.js"></script>
+<script src="js/contract_abi.js"></script>
+<script src="js/buffer.js"></script>
+<script src="js/ipfs.js"></script>
+<!-- <script src="js/data.js"></script> -->
+<script src="js/start.js"></script>
+<script src="js/start_publish.js"></script>
+<script src="js/start_market.js"></script>
+
+
+<!-- トップページのテンプレート -->
+<script type="text/x-template" id="top">
+  <div>
+    <div class="top_container">
+        <div class="ui text container">
+            <h1>Digital Content Marketplace</h1>
+            <h2>You can publish your Digital content as ERC721 token on Ethereum platform.</h2>
+            <br>
+            <!-- <div class="ui action big fluid input search_box">
+                <input type="text" placeholder="Search...">
+                <button class="ui teal big icon button">
+                  <i class="search icon"></i>
+                </button>
+              </div> -->
+              <br>
+        </div>
+    </div>
+
+    <div class="ui vertical stripe segment">
+      <div class="ui middle aligned stackable grid container">
+        <div class="row">
+          <div class="eight wide column">
+            <h3 class="ui header">How to Use</h3>
+            <p>1. Install MetaMask</p>
+            <p>2. Get Testnet ETH Rinkeby</p>
+            <p>3. Publish or Buy Image</p>
+            <h3 class="ui header">Extend the possibilities of digital data</h3>
+            <p>Yes that's right, you thought it was the stuff of dreams, but even bananas can be bioengineered.</p>
+          </div>
+          <div class="six wide right floated column">
+            <img src="img/2.png" class="ui large bordered rounded image">
+          </div>
+        </div>
+        <div class="row">
+          <div class="center aligned column">
+            <router-link to="/publish" class="ui huge button">Get Started</router-link>
+            <!-- <a href="/publish" class="ui huge button">Get Started</a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui vertical stripe segment">
+      <div class="ui middle aligned stackable grid container">
+        <div class="text_center">
+            <h2 >Recent Image</h2>
+        </div>
+        
+        <div id="pic_container">
+            <div class="pic_img"><img src="img/top.jpg" alt="" height="250" width="350"></div>
+            <div class="pic_img"><img src="img/top.jpg" alt="" height="250" width="350"></div>
+            <div class="pic_img"><img src="img/top.jpg" alt="" height="250" width="350"></div>
+            <div class="pic_img"><img src="img/top.jpg" alt="" height="250" width="350"></div>
+            <div class="pic_img"><img src="img/top.jpg" alt="" height="250" width="350"></div>
+            <div class="pic_img"><img src="img/top.jpg" alt="" height="250" width="350"></div>
+        </div>
+      </div>
+    </div>
+
+    
+      <div class="ui inverted vertical footer segment">
+          <div class="ui center aligned container">
+            <!-- <div class="ui stackable inverted divided grid">
+              
+              <div class="seven wide column">
+                <h4 class="ui inverted header">Footer Header</h4>
+                <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
+              </div>
+            </div> -->
+            <div class="ui inverted section divider"></div>
+            <div>Dappic</div>
+            <!-- <img src="img/1.png" class="ui centered mini image"> -->
+            <div class="ui horizontal inverted small divided link list">
+              <router-link to="/sitemap" class="item">Site Map</router-link>
+              <router-link to="/contact" class="item">Contact Us</router-link>
+              <router-link to="/terms" class="item">Terms of service</router-link>
+              <router-link to="/privacy" class="item">Privacy Policy</router-link>
+            </div>
+          </div>
+        </div>
+  </div>
+      
+      
+</script>
+
+
+<!-- Publishのテンプレート -->
+<script type="text/x-template" id="publish">
+  <div class="ui segment publish_height">
+      <div class="ui inverted dimmer">
+        <div class="ui text loader">load</div>
+      </div>
+           
+        <div class="wrap">
+            <form class="ui form" id="form">
+                <div class="field">
+                    <label>Image</label>
+                    <!-- imgアップしたら表示させる -->
+                    <div class="">
+                        <label for="publish" class="file" >
+                            <div class="image_box"><i class="fas fa-camera img_text"></i></div>
+                            <input type="file" id="publish" />
+                        </label>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Title</label>
+                    <input type="text" name="name" id="e_name" placeholder="">
+                </div>
+                <div class="field" style="display: none;">
+                    <label>Description</label>
+                    <textarea id="e_desc" name="desc"></textarea>
+                </div>
+
+                
+                <div class="ui right labeled input field">    
+                    <input type="text"  name="price" id="e_price" placeholder="Enter price..">
+                    <div class="ui basic label">
+                      ETH
+                    </div>
+                </div>
+                <br>
+                <div class="field">
+                    <div class="ui checkbox">
+                    <input type="checkbox"  tabindex="0" name="checkbox" id="checkbox">
+                    <label for="checkbox">I agree to the <span><router-link to="/terms" class="" style="color: #111;">terms of service</router-link></span></label>
+                    <br>
+                    </div>
+                </div>
+            </form>
+                
+                <!-- <button class="ui blue button" type="submit">出品する</button> -->
+                <div id="confirm" class="fluid ui teal button" >Publish</div>
+                <br>
+                <div class="fluid ui grey button" >back</div>
+                <br>
+                <br>
+          
+        </div>
+
+    </div>
+
+    
+
+    <div id="dev" style="display: none;">
+        <p id="message"></p>
+        <p><a src="" id="link">ipfs_image</a></p>
+        <p><a src="" id="link2">ipfs_uri</a></p>
+        <p><a src="" id="link3">https://ipfs.io/ipfs/Qmdc3gRYPqVNDVqkjcWk8qjjuX6duhxaggZU8DQcYXwpEW</a></p>
+    </div>
+</script>
+
+<!-- Marketのテンプレート -->
+<script type="text/x-template" id="market">
+  <div class="ui segment1 ">
+      <div class="ui inverted dimmer">
+        <div class="ui text loader">Load</div>
+      </div>
+        <div id="pic_container">
+          <div v-for="item in items" v-bind:key="items.name" class="pic_img">
+            <router-link :to="{ name:'show', params:{itemId: item.id}}" class="item"><img v-bind:src="item.image"  alt="" height="250" width="350"></router-link>
+            <div class="hover-mask">
+              <p class="center">{{ item.name }} <span class="space1">Ξ</span>{{ item.price }} </p>
+              <!-- <p class="center"><span>Ξ</span>{{ item.price }}</p> -->
+            </div>
+          </div>
+      </div>
+    </div>
+</script>
+
+<!-- Showのテンプレート -->
+<script type="text/x-template" id="show">
+  <div class="show_container">
+      <div class="img_box">
+        <img v-bind:src="items[$route.params.itemId].image" alt="" width="100%">
+      </div>
+      <div class="img_detail">
+        <div class="title">{{ items[$route.params.itemId].name }}</div>
+        <div class="owner" id="owner"><span>Owned by </span>{{ items[$route.params.itemId].owner }}</div>
+        <div class="description">{{ items[$route.params.itemId].description }}</div>
+        <div v-if="items[$route.params.itemId].price == 0">
+            <div v-if="userAccount === items[$route.params.itemId].owner">
+              <div class="sell_msg">You can sell this token</div>
+
+              <div class="ui right labeled input price">
+                  <input type="text" placeholder="Enter price.." id=price_input>
+                  <div class="ui basic label">
+                    ETH
+                  </div>
+                </div>
+              <!-- <div class="price">Ξ<span><input type="text" id=price_input value=""></span></div> -->
+              <button id="sell" class="ui huge primary button">sell</button>
+            </div>
+            <div v-else>
+              <div class="price">Ξ<span id=price_val>{{ items[$route.params.itemId].price }}</span></div>
+              <button id="offer" class="ui huge primary button">Offer </button>
+            </div>
+        </div>
+        <div v-else>
+            <div v-if="userAccount === items[$route.params.itemId].owner">
+                <div class="price">Ξ<span id=price_val>{{ items[$route.params.itemId].price }}</span></div>
+                <!-- <div class="jpy_price">¥<span id=price_val>{{ items[$route.params.itemId].price * eth_price }}</span></div> -->
+                <button id="cancel" class="ui huge primary button">cancel</button>
+              </div>
+              <div v-else>
+                <div class="price">Ξ<span id=price_val>{{ items[$route.params.itemId].price }}</span></div>
+                <button id="buy" class="ui huge primary button">Buy now </button>
+              </div>
+        </div> 
+
+        
+      </div>
+      <p id="number" style="display:none;">{{ $route.params.itemId }}</p>
+      <!-- <router-link to="/market">戻る</router-link> -->
+    </div>
+
+</script>
+
+
+<!-- Mypageのテンプレート -->
+<script type="text/x-template" id="mypage">
+  <!-- <li v-for="n in evenNumbers">{{ n }}</li> -->
+  <!-- <li v-for="n in even(numbers)">{{ n }}</li> -->
+  <!-- <div>
+    <router-link to="/market">戻る</router-link>
+    <p>test</p>
+    <button v-on:click="doBuy">購入</button>
+  </div> -->
+  <div class="ui segment1 ">
+      <div class="ui inverted dimmer">
+        <div class="ui text loader">load</div>
+      </div>
+      <div class="">
+        <h2>Your Collection</h2>
+        <button id="test">testbutton</button>
+        <button v-on:click="myp">mypage</button>
+          <div id="pic_container">
+          <div v-for="item in myitems" v-bind:key="myitems.name" class="pic_img">
+            <router-link :to="{ name:'show', params:{itemId: item.id}}" class="item"><img v-bind:src="item.image"  alt="" height="250" width="350"></router-link>
+          </div>
+          </div>
+      </div>
+    </div>
+</script>
+
+<!-- 利用規約のテンプレート -->
+<script type="text/x-template" id="terms">
+  <div class="wrap">
+      <h1>利用規約</h1>
+      
+      <p>この利用規約（以下，「本規約」といいます。）は，提供者がこのウェブサイト上で提供するサービス（以下，「本サービス」といいます。）の利用条件を定めるものです。登録ユーザーの皆さま（以下，「ユーザー」といいます。）には，本規約に従って，本サービスをご利用いただきます。</p>
+      
+      <h2>第1条（適用）</h2>
+      <p>本規約は，ユーザーと提供者との間の本サービスの利用に関わる一切の関係に適用されるものとします。</p>
+      
+      <h2>第2条（利用登録）</h2>
+      <ul>
+      <li>登録希望者が提供者の定める方法によって利用登録を申請し，提供者がこれを承認することによって，利用登録が完了するものとします。</li>
+      <li>提供者は，利用登録の申請者に以下の事由があると判断した場合，利用登録の申請を承認しないことがあり，その理由については一切の開示義務を負わないものとします。
+      <ul>
+      <li>（1）利用登録の申請に際して虚偽の事項を届け出た場合</li>
+      <li>（2）本規約に違反したことがある者からの申請である場合</li>
+      <li>（3）未成年者，成年被後見人，被保佐人または被補助人のいずれかであり，法定代理人，後見人，保佐人または補助人の同意等を得ていなかった場合</li>
+      <li>（4）反社会的勢力等（暴力団，暴力団員，右翼団体，反社会的勢力，その他これに準ずる者を意味します。）である，または資金提供その他を通じて反社会的勢力等の維持，運営もしくは経営に協力もしくは関与する等反社会的勢力との何らかの交流もしくは関与を行っていると提供者が判断した場合</li>
+      <li>（5）その他，提供者が利用登録を相当でないと判断した場合</li>
+      </ul></li>
+      </ul>
+      <h2>第3条</h2>
+
+      <h2>第4条</h2>
+      
+      <h2>第5条（禁止事項）</h2>
+      <p>ユーザーは，本サービスの利用にあたり，以下の行為をしてはなりません。</p>
+      <ul class="child">
+      <li>（1）法令または公序良俗に違反する行為</li>
+      <li>（2）犯罪行為に関連する行為</li>
+      <li>（3）提供者のサーバーまたはネットワークの機能を破壊したり，妨害したりする行為</li>
+      <li>（4）提供者のサービスの運営を妨害するおそれのある行為</li>
+      <li>（5）他のユーザーに関する個人情報等を収集または蓄積する行為</li>
+      <li>（6）他のユーザーに成りすます行為</li>
+      <li>（7）提供者のサービスに関連して，反社会的勢力に対して直接または間接に利益を供与する行為</li>
+      <li>（8）提供者，本サービスの他の利用者または第三者の知的財産権，肖像権，プライバシー，名誉その他の権利または利益を侵害する行為</li>
+      <li>（9）過度に暴力的な表現，露骨な性的表現，人種，国籍，信条，性別，社会的身分，門地等による差別につながる表現，自殺，自傷行為，薬物乱用を誘引または助長する表現，その他反社会的な内容を含み他人に不快感を与える表現を，投稿または送信する行為</li>
+      <li>（10）営業，宣伝，広告，勧誘，その他営利を目的とする行為（提供者の認めたものを除きます。），性行為やわいせつな行為を目的とする行為，面識のない異性との出会いや交際を目的とする行為，他のお客様に対する嫌がらせや誹謗中傷を目的とする行為，その他本サービスが予定している利用目的と異なる目的で本サービスを利用する行為</li>
+      <li>（11）宗教活動または宗教団体への勧誘行為</li>
+      <li>（12）その他，提供者が不適切と判断する行為</li>
+      </ul>
+      
+      <h2>第6条（本サービスの提供の停止等）</h2>
+      <ul>
+      <li>提供者は，以下のいずれかの事由があると判断した場合，ユーザーに事前に通知することなく本サービスの全部または一部の提供を停止または中断することができるものとします。
+      <ul>
+      <li>（1）本サービスにかかるコンピュータシステムの保守点検または更新を行う場合</li>
+      <li>（2）地震，落雷，火災，停電または天災などの不可抗力により，本サービスの提供が困難となった場合</li>
+      <li>（3）コンピュータまたは通信回線等が事故により停止した場合</li>
+      <li>（4）その他，提供者が本サービスの提供が困難と判断した場合</li>
+      </ul></li>
+      <li>提供者は，本サービスの提供の停止または中断により，ユーザーまたは第三者が被ったいかなる不利益または損害について，理由を問わず一切の責任を負わないものとします。</li>
+      </ul>
+      
+      <h2>第7条（著作権）</h2>
+      <ul>
+      <li>ユーザーは，自ら著作権等の必要な知的財産権を有するか，または必要な権利者の許諾を得た文章，画像や映像等の情報のみ，本サービスを利用し，投稿または編集することができるものとします。</li>
+      <li>ユーザーが本サービスを利用して投稿または編集した文章，画像，映像等の著作権については，当該ユーザーその他既存の権利者に留保されるものとします。ただし，提供者は，本サービスを利用して投稿または編集された文章，画像，映像等を利用できるものとし，ユーザーは，この利用に関して，著作者人格権を行使しないものとします。</li>
+      <li>前項本文の定めるものを除き，本サービスおよび本サービスに関連する一切の情報についての著作権およびその他知的財産権はすべて提供者または提供者にその利用を許諾した権利者に帰属し，ユーザーは無断で複製，譲渡，貸与，翻訳，改変，転載，公衆送信（送信可能化を含みます。），伝送，配布，出版，営業使用等をしてはならないものとします。</li>
+      </ul>
+      
+      <h2>第8条（利用制限および登録抹消）</h2>
+      <ul>
+      <li>提供者は，以下の場合には，事前の通知なく，投稿データを削除し，ユーザーに対して本サービスの全部もしくは一部の利用を制限しまたはユーザーとしての登録を抹消することができるものとします。
+      <ul>
+      <li>（1）本規約のいずれかの条項に違反した場合</li>
+      <li>（2）登録事項に虚偽の事実があることが判明した場合</li>
+      <li>（3）破産，民事再生，会社更生または特別清算の手続開始決定等の申立がなされたとき</li>
+      <li>（4）1年間以上本サービスの利用がない場合</li>
+      <li>（5）提供者からの問い合わせその他の回答を求める連絡に対して30日間以上応答がない場合</li>
+      <li>（6）第2条第2項各号に該当する場合</li>
+      <li>（7）その他，提供者が本サービスの利用を適当でないと判断した場合</li>
+      </ul></li>
+      <li>前項各号のいずれかに該当した場合，ユーザーは，当然に提供者に対する一切の債務について期限の利益を失い，その時点において負担する一切の債務を直ちに一括して弁済しなければなりません。</li>
+      <li>提供者は，本条に基づき提供者が行った行為によりユーザーに生じた損害について，一切の責任を負いません。</li>
+      </ul>
+      
+      <h2>第9条（保証の否認および免責事項）</h2>
+      <ul>
+      <li>提供者は，本サービスに事実上または法律上の瑕疵（安全性，信頼性，正確性，完全性，有効性，特定の目的への適合性，セキュリティなどに関する欠陥，エラーやバグ，権利侵害などを含みます。）がないことを明示的にも黙示的にも保証しておりません。</li>
+      <li>提供者は，本サービスに起因してユーザーに生じたあらゆる損害について一切の責任を負いません。ただし，本サービスに関する提供者とユーザーとの間の契約（本規約を含みます。）が消費者契約法に定める消費者契約となる場合，この免責規定は適用されません。</li>
+      <li>前項ただし書に定める場合であっても，提供者は，提供者の過失（重過失を除きます。）による債務不履行または不法行為によりユーザーに生じた損害のうち特別な事情から生じた損害（提供者またはユーザーが損害発生につき予見し，または予見し得た場合を含みます。）について一切の責任を負いません。また，提供者の過失（重過失を除きます。）による債務不履行または不法行為によりユーザーに生じた損害の賠償は，ユーザーから当該損害が発生した月に受領した利用料の額を上限とします。</li>
+      <li>提供者は，本サービスに関して，ユーザーと他のユーザーまたは第三者との間において生じた取引，連絡または紛争等について一切責任を負いません。</li>
+      </ul>
+      
+      <h2>第10条（サービス内容の変更等）</h2>
+      <p>提供者は，ユーザーに通知することなく，本サービスの内容を変更しまたは本サービスの提供を中止することができるものとし，これによってユーザーに生じた損害について一切の責任を負いません。</p>
+      
+      <h2>第11条（利用規約の変更）</h2>
+      <p>提供者は，必要と判断した場合には，ユーザーに通知することなくいつでも本規約を変更することができるものとします。</p>
+      
+      <h2>第12条（通知または連絡）</h2>
+      <p>ユーザーと提供者との間の通知または連絡は，提供者の定める方法によって行うものとします。</p>
+  
+      <h2>第13条（本サービスの内容の変更、終了）</h2>
+      <p>提供者は、提供者の都合により、本サービスの内容を変更し、または提供を終了することができます。提供者が本サービスの提供を終了する場合、提供者は登録ユーザーに事前に通知するものとします。</p>
+      <p>提供者は、本条に基づき提供者が行った措置に基づき登録ユーザーに生じた損害について一切の責任を負いません。</p>
+  
+      <h2>第14条（権利義務の譲渡の禁止）</h2>
+      <p>ユーザーは，提供者の書面による事前の承諾なく，利用契約上の地位または本規約に基づく権利もしくは義務を第三者に譲渡し，または担保に供することはできません。</p>
+      
+      <h2>第15条（準拠法・裁判管轄）</h2>
+      <ul>
+      <li>本規約の解釈にあたっては，日本法を準拠法とします。</li>
+      <li>本サービスに関して紛争が生じた場合には，提供者の本店所在地を管轄する裁判所を専属的合意管轄とします。</li>
+      </ul>
+      
+      <p class="tR">以上</p>
+      
+    </div>
+</script>
+
+<!-- プライバシーポリシーのテンプレート -->
+<script type="text/x-template" id="">
+
+
+</script>
+
+<script>
+var Top = {
+      template: '#top',
+    }
+
+var Publish = {
+    template: '#publish',
+    }
+
+var Market = {
+    template: '#market',
+    }
+
+var Show = {
+    template: '#show',
+    }
+
+var Mypage = {
+    template: '#mypage',
+    data: {
+          numbers: [ 1, 2, 3, 4, 5 ]
+        },
+    computed: {
+      //同期処理、値を返す、副作用がない、入力が同じなら出力が同じ
+      //キャッシュとってしまうので、masrandamは使えない。
+        evenNumbers: function () {
+          // return this.numbers.filter(function (number) {
+            return number % 2 === 0
+          // })
+        }
+      },
+    methods: {
+      doBuy: function () {
+          // 本来はここで、サーバーと通信をおこなう
+          alert(this.totalPriceWithTax + '円のお買い上げ！')
+          // this.items.forEach(function (item) {
+          //     item.quantity = 0
+          // })
+      },
+      myp: function(){
+        console.log(userAccount)
+        myitems =[];
+        for(let i =0; i<data.length; i++){
+          var owner = data[i].owner;
+          console.log(data[i].owner);
+          console.log(data[i])
+          if(userAccount == owner){
+            myitems.push(data[i])
+          }
+        }
+        return myitems;
+      }
+    }
+    
+  }
+var Terms = {
+    template: '#terms',
+    }
+
+
+var router = new VueRouter({
+  // 各ルートにコンポーネントをマッピングします
+  // コンポーネントはVue.extend() によって作られたコンポーネントコンストラクタでも
+  // コンポーネントオプションのオブジェクトでも構いません
+  routes: [
+    {
+      path: '/',
+      component: Top
+    },
+    {
+      path: '/publish',
+      component: Publish,
+    },
+    
+    {
+      path: '/market',
+      name:'market',
+      data:{
+        items:items
+      },
+      component: Market,
+
+      beforeEnter: function(to, from, next){
+        // if(items.length == 0){
+        //   console.log(items.length)
+        //   alert('情報取得中です')
+        //   console.log('ok')
+        //   // $('.segment1').dimmer('hide');
+        //   // $('.segment1').dimmer('show');
+        // }else{
+        //   console.log('ng')
+        //   router.push('/top')
+        //   router.push('/market')
+        // }
+        next()
+      },
+    },
+    {
+      path: '/show/:itemId',
+      name:'show',
+      data: {
+        items: items,
+        eth_price: eth_price
+      },
+      component: Show,
+      // props: { 
+      //   name: 'itemId' 
+      // },
+
+      beforeEnter: function(to, from, next){
+        //クリックしたidを引っ張ってくるのが難しかったんだ。
+        //routerでは値の受け渡しは出来ない、
+        // console.log(name)
+        // console.log(userAccount)
+        // var n = id;
+        // axios.get('http://localhost:3000/picture?id=' + n)
+        // .then(function(response){
+        //   data = response.data
+        //   // console.log(data)
+        //     sitems.push({
+        //       seller: data.seller,
+        //       price: data.price / 1000000000000000000,
+        //   })
+
+        //   console.log(sitems)
+        //   $('.segment1').dimmer('hide');
+
+        // }.bind(this))
+        // .catch(function(error){
+        //   console.log(error)
+        // })
+          
+          
+        next()
+
+      },
+      
+    },
+    {
+      path: '/mypage',
+      name:'mypage',
+      data:{
+        myitems:myitems
+      },
+      
+      component: Mypage,
+      beforeEnter: function(to, from, next){
+          console.log(userAccount)
+          //itemsの中からownerがuserAccountと同じものを配列に入れる
+          
+          next()
+
+      },
+    },
+    {
+      path: '/terms',
+      name:'terms',
+      component: Terms
+    },
+    {
+      path: '/user/:itemId',
+      name:'user',
+      component: {
+        template: `
+        <div>ユーザーIDは {{ $route.params.itemId }}</div><div>{{ name }}</div>
+        <router-link to="/market">戻る</router-link>
+        `
+      }
+    }
+  ]
+})
+
+
+var items =[
+// { id: 0,
+//     publisher: '0x607aea00ba3c2cc23b65a7da1f79bec0c3ad549e',
+//     name: 'rain',
+//     image: 'https://ipfs.io/ipfs/QmVP3VsMpAgS45sQphGcZdQE432m1wJiKTinjyTXuTa2Z9',
+//     description: 'water',
+//     owner: '0x607aea00ba3c2cc23b65a7da1f79bec0c3ad549e',
+//     seller: '0x607aea00ba3c2cc23b65a7da1f79bec0c3ad549e',
+//     price: '1.2' },
+//   { id: 1,
+//     publisher: '0xa51c3c83b5a532b9f1ae6823969933cd997baa56',
+//     name: 'Leaf',
+//     image: 'https://ipfs.io/ipfs/QmQ3W1ChNM3SEdcQtzE4mneisAJ91xtRU55hbsr7paDjD6',
+//     description: 'Autumn leaves\n',
+//     owner: '0x607aea00ba3c2cc23b65a7da1f79bec0c3ad549e',
+//     seller: '0x607aea00ba3c2cc23b65a7da1f79bec0c3ad549e',
+//     price: '0.2' }
+]
+var myitems = []
+var data =[]
+var sitems = []
+var eth_price = 20000;
+
+// ルーターのインスタンスをrootとなるVueインスタンスに渡します
+
+var app = new Vue({
+  router: router,
+  
+  mounted: function(){
+    $('.segment1').dimmer('show');
+    
+    // axios.get('https://dappic-test.glitch.me/getData')
+    axios.get('http://localhost:3000/getData')
+    .then(function(response){
+      data = response.data
+     
+      for(let i =0; i<data.length; i++){
+          var n = data[i]
+            items.push({
+              id: i,
+              name: data[i].name,
+              description: data[i].description,
+              image: data[i].image,
+              publisher: data[i].publisher,
+              owner: data[i].owner,
+              seller: data[i].seller,
+              price: data[i].price /1000000000000000000,
+            })
+        }
+      
+      // for(let i =0; i<data.length; i++){
+      //     var n = data[i]
+      //     console.log(n)
+      //     console.log(userAccount)
+      //     console.log(data[i].owner)
+      //     if(userAccount == data[i].owner){
+      //       myitems.push({
+      //         id: i,
+      //         name: data[i].name,
+      //         description: data[i].description,
+      //         image: data[i].image,
+      //         publisher: data[i].publisher,
+      //         owner: data[i].owner,
+      //         seller: data[i].seller,
+      //         price: data[i].price /1000000000000000000,
+      //       })
+      //     }
+      //   }
+
+        console.log(items)
+        console.log(myitems)
+        
+        $('.segment1').dimmer('hide');
+
+    }.bind(this))
+    .catch(function(error){
+      console.log(error)
+    })
+
+    //ETH価格取得
+    //Access-Control-Allow-Origin
+    // axios.get('https://cc.minkabu.jp/api/bar/ETH-JPY.json?range=30m&limit=48')
+    // .then(function(response){
+    //   data = response.data
+    //   var array = data;
+    //   console.log(data)
+      
+
+    // }.bind(this))
+    // .catch(function(error){
+    //   console.log(error)
+    // })
+
+  
+}
+
+}).$mount('#app')
+
+</script>
+  
+</body>
+</html>
