@@ -3,28 +3,6 @@
 var contractABI = 
 [
 	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"name": "operator",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"name": "approved",
-				"type": "bool"
-			}
-		],
-		"name": "ApprovalForAll",
-		"type": "event"
-	},
-	{
 		"constant": false,
 		"inputs": [
 			{
@@ -88,6 +66,10 @@ var contractABI =
 			{
 				"name": "_description",
 				"type": "string"
+			},
+			{
+				"name": "_price",
+				"type": "uint128"
 			}
 		],
 		"name": "mintpicture",
@@ -111,70 +93,57 @@ var contractABI =
 		"type": "function"
 	},
 	{
-		"anonymous": false,
+		"constant": false,
+		"inputs": [],
+		"name": "renounceOwnership",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
 		"inputs": [
 			{
-				"indexed": true,
+				"name": "_tokenId",
+				"type": "uint256"
+			},
+			{
+				"name": "_ipfsHash",
+				"type": "string"
+			},
+			{
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"name": "_description",
+				"type": "string"
+			}
+		],
+		"name": "safeimg",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
 				"name": "from",
 				"type": "address"
 			},
 			{
-				"indexed": true,
 				"name": "to",
 				"type": "address"
 			},
 			{
-				"indexed": true,
 				"name": "tokenId",
 				"type": "uint256"
 			}
 		],
-		"name": "Transfer",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"name": "previousOwner",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"name": "newOwner",
-				"type": "address"
-			}
-		],
-		"name": "OwnershipTransferred",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"name": "approved",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"name": "tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "Approval",
-		"type": "event"
-	},
-	{
-		"constant": false,
-		"inputs": [],
-		"name": "renounceOwnership",
+		"name": "safeTransferFrom",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -210,28 +179,6 @@ var contractABI =
 		"constant": false,
 		"inputs": [
 			{
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"name": "tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "safeTransferFrom",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
 				"name": "to",
 				"type": "address"
 			},
@@ -241,6 +188,20 @@ var contractABI =
 			}
 		],
 		"name": "setApprovalForAll",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_cut",
+				"type": "uint128"
+			}
+		],
+		"name": "setPublisherCut",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -283,12 +244,6 @@ var contractABI =
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
 		"constant": false,
 		"inputs": [
 			{
@@ -301,6 +256,95 @@ var contractABI =
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
+	},
+	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "previousOwner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "OwnershipTransferred",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "Transfer",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "approved",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "Approval",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "operator",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "approved",
+				"type": "bool"
+			}
+		],
+		"name": "ApprovalForAll",
+		"type": "event"
 	},
 	{
 		"constant": true,
@@ -460,6 +504,20 @@ var contractABI =
 			},
 			{
 				"name": "price",
+				"type": "uint128"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "publisherCut",
+		"outputs": [
+			{
+				"name": "",
 				"type": "uint128"
 			}
 		],

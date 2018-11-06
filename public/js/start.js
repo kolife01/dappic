@@ -11,9 +11,8 @@ window.addEventListener('load', function () {
 
 
 async function startApp(){
-    // var contractAddress = "0x87Bde3670587e2B013fd2CdFb830c09F60e3Fc30";
-    // var contractAddress = "0x2b2683c012cae4eb037dcb3fdf81ad8016c84daf";//~181026
-    var contractAddress = "0x056939771022e45003feda84f7f4c455126f3c54";//
+    // var contractAddress = "0x056939771022e45003feda84f7f4c455126f3c54"; //v2
+    var contractAddress = "0xba88874d79833f1495babb5264da4d205e89b458"; //v3
     contract = new web3js.eth.Contract(contractABI, contractAddress);
 
     // sampleResolve();
@@ -61,3 +60,11 @@ $(document).ready(function() {
       $('#luxbar-checkbox').prop('checked', false);
     });
   });
+
+
+
+$('#example3')
+  .progress({
+    total: 3
+  })
+;

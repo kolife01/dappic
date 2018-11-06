@@ -24,33 +24,51 @@ $(document).on("click", "#confirm", function () {
 });
 
 async function token(){
-//   const result = await sampleResolve();
-    sampleResolve();
+  //   const result = await sampleResolve();
+  // sampleResolve();
   const result = userAccount;
-  console.log(2)
-    const img_url = await readFile(this);
-//  const url = await ipfs_test(img_url);
-    const name = document.getElementById('e_name').value;
-    const description = document.getElementById('e_desc').value;
+  const name = document.getElementById('e_name').value;
+  const description = document.getElementById('e_desc').value;
+  const _price = document.getElementById('e_price').value;
+  const price = _price * 1000000000000000000;
+  const check1 = document.form1.Checkbox1.checked;
 
-    console.log(img_url,name,description)
+  
+  if(isNumber(price) && check1 == true){
+    
+      const img_url = await readFile(this);
+  
+      console.log(img_url,name,description,price)
+
+      contract.methods.mintpicture(img_url,name,description,price)
+        .send({ from: result, gasLimit: "500000" })
+        .on("transactionHash", function (_receipt) {
+            alert("Now your Token Collection is being published. txhash:" + _receipt);
+            console.log("txhash: " + _receipt)
+        })
+        .on("receipt", function (_receipt) {
+            console.log(_receipt);
+        })
+        .on("error", function (_error) {
+            console.log(_error);
+        })
+    $('.segment').dimmer('hide');
+  
+  }else{
+    alert("Please check field")
+  }
+  
+
   
   
-  contract.methods.mintpicture(img_url,name,description)
-      .send({ from: result, gasLimit: "500000" })
-      .on("transactionHash", function (_receipt) {
-          alert("Now your Token Collection is being published. txhash:" + _receipt);
-          console.log("txhash: " + _receipt)
-      })
-      .on("receipt", function (_receipt) {
-          console.log(_receipt);
-      })
-      .on("error", function (_error) {
-          console.log(_error);
-      })
-      $('.segment').dimmer('hide');
 };
 
+function isNumber(numVal){
+  // チェック条件パターン
+  var pattern = /^([1-9]\d*|0)(\.\d+)?$/;
+  // 数値チェック
+  return pattern.test(numVal);
+}
 
 
 var ipfs = window.IpfsApi({ host: 'ipfs.infura.io', protocol: 'https' });
@@ -85,6 +103,8 @@ function readFile(input) {
 }
 
 
+
+//実装出来ず
 $('.field.example form')
   .form({
     fields: {
@@ -101,20 +121,25 @@ $('.field.example form')
   });
 
 
-  function onButtonClick() {
-    check1 = document.form1.Checkbox1.checked;
-    check2 = document.form1.Checkbox2.checked;
+  
+  // function onButtonClick() {
+  //   check1 = document.form.checkbox.checked;
 
-    target = document.getElementById("output");
+  //   if (check1 == true) {
+  //       console.log("ok")
+  //   } else {
+  //     console.log("ng")
+  //   }
+  // }
+
+
+  function onButtonClick() {
+    
+    check1 = document.form1.Checkbox1.checked;
+
     if (check1 == true) {
-        
-      target.innerHTML = "チェック項目1がチェックされています。<br/>";
+      
     } else {
-      target.innerHTML = "チェック項目1がチェックされていません。<br/>";
-    }
-    if (check2 == true) {
-      target.innerHTML += "チェック項目2がチェックされています。<br/>";
-    } else {
-      target.innerHTML += "チェック項目2がチェックされていません。<br/>";
+      alert("Please check terms of service")
     }
   }

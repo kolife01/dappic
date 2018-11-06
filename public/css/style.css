@@ -3,6 +3,8 @@ img{
   vertical-align: bottom;
 }
 
+
+
 /*---------- publish ---------- */
 
 .main_wrap{
@@ -39,6 +41,15 @@ cursor: pointer;
 .text_center{
   max-width: 350px;
   margin: auto;
+}
+
+/*---------- load ---------- */
+
+
+#example3{
+  max-width: 500px;
+  margin: auto;
+  margin-top: 200px;
 }
 
 /*---------- index ---------- */
