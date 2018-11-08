@@ -6,7 +6,7 @@ let test1;
 window.addEventListener('load', function () {
     checkweb3()
     startApp()
-
+    // fuwat()
 })
 
 
@@ -68,3 +68,19 @@ $('#example3')
     total: 3
   })
 ;
+
+//LPふわっと
+//Roterレンダリング後はhiddenが機能しない
+// function fuwat(){
+//     $('.fuwat').css('visibility','hidden');
+//     $(window).scroll(function(){
+//      var windowHeight = $(window).height(),
+//          topWindow = $(window).scrollTop();
+//      $('.fuwat').each(function(){
+//       var objectPosition = $(this).offset().top;
+//       if(topWindow > objectPosition - windowHeight + 200){
+//        $(this).addClass("fuwatAnime");
+//       }
+//      });
+//     });
+//   };

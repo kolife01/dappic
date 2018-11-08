@@ -27,10 +27,12 @@
                         <label class="luxbar-hamburger luxbar-hamburger-doublespin" 
                         id="luxbar-hamburger" for="luxbar-checkbox"> <span></span> </label>
                     </li>
+                    
                     <li class="luxbar-item"><router-link to="/publish">Publish</router-link></li>
                     <li class="luxbar-item"><router-link to="/market">Market</router-link></li>
                     <li class="luxbar-item"><router-link to="/mypage">Mypage</router-link></li>
-                    <li class="luxbar-item"><a href="/init">Contact</a></li>
+                    <li class="luxbar-item"><router-link to="">Contact</router-link></li>
+                    
                 </ul>
             </div>
         </div>
@@ -78,37 +80,43 @@
   <div>
     <div class="top_container">
         <div class="ui text container">
-            <h1>Digital Content Marketplace</h1>
+            <h1 >Digital Content Marketplace</h1>
+            <!-- <h2>Secondary Market</h2> -->
             <h2>You can publish your Digital content as ERC721 token on Ethereum platform.</h2>
             <br>
-            <!-- <div class="ui action big fluid input search_box">
-                <input type="text" placeholder="Search...">
-                <button class="ui teal big icon button">
-                  <i class="search icon"></i>
-                </button>
-              </div> -->
-              <br>
+            <br>
         </div>
     </div>
-
     <div class="ui vertical stripe segment">
+        <div class="ui middle aligned stackable grid container">
+          
+          <div class="text_boxcenter">
+              <h2 class="text_center fuwat">Dappic is a different kind of
+                  stock photography marketplace</h2>
+              <p class="text_center fuwat">By registering the image in the Blockchain, you can manage ownership and buy and sell images on Ethereum.</p>
+          </div>
+          
+        </div>
+      </div>
+
+    <div class="ui vertical stripe segment fuwat">
       <div class="ui middle aligned stackable grid container">
         <div class="row">
-          <div class="eight wide column">
-            <h3 class="ui header">How to Use</h3>
+          <div class="eight wide column ">
+            <h3 class="ui header">Secondary Market of Degital Contents</h3>
+            <p>Profits from secondary distribution will be returned to creators.</p>
+            <h3 class="ui header ">How to Use</h3>
             <p>1. Install MetaMask</p>
             <p>2. Get Testnet ETH Rinkeby</p>
             <p>3. Publish or Buy Image</p>
-            <h3 class="ui header">Extend the possibilities of digital data</h3>
-            <p>Yes that's right, you thought it was the stuff of dreams, but even bananas can be bioengineered.</p>
           </div>
           <div class="six wide right floated column">
-            <img src="img/2.png" class="ui large bordered rounded image">
+            <img src="img/1.png" class="ui large bordered rounded image">
           </div>
         </div>
         <div class="row">
-          <div class="center aligned column">
-            <router-link to="/publish" class="ui huge button">Get Started</router-link>
+          <div class="center aligned column fuwat">
+            <router-link to="/publish" class="ui huge button ">Get Started</router-link>
             <!-- <a href="/publish" class="ui huge button">Get Started</a> -->
           </div>
         </div>
@@ -116,17 +124,17 @@
     </div>
     <div class="ui vertical stripe segment">
       <div class="ui middle aligned stackable grid container">
-        <div class="text_center">
+        <div class="text_boxcenter fuwat">
             <h2 >Recent Image</h2>
         </div>
         
         <div id="pic_container">
-            <div class="pic_img"><img src="img/top.jpg" alt="" height="250" width="350"></div>
-            <div class="pic_img"><img src="img/top.jpg" alt="" height="250" width="350"></div>
-            <div class="pic_img"><img src="img/top.jpg" alt="" height="250" width="350"></div>
-            <div class="pic_img"><img src="img/top.jpg" alt="" height="250" width="350"></div>
-            <div class="pic_img"><img src="img/top.jpg" alt="" height="250" width="350"></div>
-            <div class="pic_img"><img src="img/top.jpg" alt="" height="250" width="350"></div>
+            <div class="pic_img fuwat"><img src="img/sample1.jpg" alt="" height="250" width="350"></div>
+            <div class="pic_img fuwat"><img src="img/sample2.jpg" alt="" height="250" width="350"></div>
+            <div class="pic_img fuwat"><img src="img/sample3.jpg" alt="" height="250" width="350"></div>
+            <div class="pic_img fuwat"><img src="img/sample4.jpg" alt="" height="250" width="350"></div>
+            <div class="pic_img fuwat"><img src="img/sample5.jpg" alt="" height="250" width="350"></div>
+            <div class="pic_img fuwat"><img src="img/sample6.jpg" alt="" height="250" width="350"></div>
         </div>
       </div>
     </div>
@@ -326,21 +334,24 @@
     <p>test</p>
     <button v-on:click="doBuy">購入</button>
   </div> -->
-  <div class="ui segment1 ">
-      <div class="ui inverted dimmer">
-        <div class="ui text loader">load</div>
-      </div>
+  
       <div class="">
-        <h2>Your Collection</h2>
-        <button id="test">testbutton</button>
+        <h2>Under maintenance</h2>
+        <!-- <button id="test">testbutton</button>
         <button v-on:click="myp">mypage</button>
           <div id="pic_container">
           <div v-for="item in myitems" v-bind:key="myitems.name" class="pic_img">
             <router-link :to="{ name:'show', params:{itemId: item.id}}" class="item"><img v-bind:src="item.image"  alt="" height="250" width="350"></router-link>
           </div>
-          </div>
+          </div> -->
       </div>
-    </div>
+</script>
+
+<!-- How to useのテンプレート -->
+<script type="text/x-template" id="howtouse">
+  <div>
+    
+  </div>
 </script>
 
 <!-- 利用規約のテンプレート -->
@@ -537,7 +548,11 @@ var router = new VueRouter({
     },
     {
       path: '/top',
-      component: Top
+      component: Top,
+      // beforeEnter: function(to, from, next){
+      //   // $('.fuwat').css('visibility','hidden');
+      //   next()
+      // }
     },
     {
       path: '/publish',
@@ -677,8 +692,8 @@ var app = new Vue({
   router: router,
   
   mounted: async function(){
-    const res1 =  await axios.get('http://localhost:3000/totalsupply')
-    // const res1 =  await axios.get('https://dappic-test.glitch.me/totalsupply')
+    // const res1 =  await axios.get('http://localhost:3000/totalsupply')
+    const res1 =  await axios.get('https://dappic-test.glitch.me/totalsupply')
           .then(function(response){
               n = response.data
              }.bind(this))
@@ -697,8 +712,8 @@ var app = new Vue({
       items = []
       console.log(n)
       for(let i=1; i<= n; i++){
-        const res =  await axios.get('http://localhost:3000/picture?id=' + i)
-        // const res =  await axios.get('https://dappic-test.glitch.me/picture?id=' + i)
+        // const res =  await axios.get('http://localhost:3000/picture?id=' + i)
+        const res =  await axios.get('https://dappic-test.glitch.me/picture?id=' + i)
           .then(function(response){
             data = response.data
                 items.push({
@@ -720,6 +735,7 @@ var app = new Vue({
               })
             }
         router.push('top')
+        
     }
 
 
