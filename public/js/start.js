@@ -49,7 +49,7 @@ function checkweb3(){
     web3js = new Web3(web3.currentProvider);
   } else {
     console.log("NG")
-    alert("Please start up the Metamask and connect to the Mainnet.")
+    alert("Please start up the Metamask and connect to the Rinkeby testnet.")
   }
 
 }

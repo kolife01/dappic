@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-91632900-5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-91632900-5');
+  </script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -27,11 +37,11 @@
                         <label class="luxbar-hamburger luxbar-hamburger-doublespin" 
                         id="luxbar-hamburger" for="luxbar-checkbox"> <span></span> </label>
                     </li>
-                    
+                    <li class="luxbar-item"><router-link to="/howtouse">How to</router-link></li>
                     <li class="luxbar-item"><router-link to="/publish">Publish</router-link></li>
                     <li class="luxbar-item"><router-link to="/market">Market</router-link></li>
                     <li class="luxbar-item"><router-link to="/mypage">Mypage</router-link></li>
-                    <li class="luxbar-item"><router-link to="">Contact</router-link></li>
+                   
                     
                 </ul>
             </div>
@@ -116,7 +126,7 @@
         </div>
         <div class="row">
           <div class="center aligned column fuwat">
-            <router-link to="/publish" class="ui huge button ">Get Started</router-link>
+            <router-link to="/howtouse" class="ui huge button ">How to Use</router-link>
             <!-- <a href="/publish" class="ui huge button">Get Started</a> -->
           </div>
         </div>
@@ -349,8 +359,38 @@
 
 <!-- How to useのテンプレート -->
 <script type="text/x-template" id="howtouse">
-  <div>
-    
+  <div class="wrap">
+    <h1 class="text_boxcenter">How to use</h1>
+    <h2>1. Install MetaMask</h2>
+      <p>まず、Google Chrome用のプラグインである
+        <span><a href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn">MetaMask</a></span>
+        をインストールします。</p>
+      <p>MetaMaskはEthereumを使ったDAppsを簡単に使うことができるプラグインであり、 Ethereum上のdappsを利用するときに多く用いられているウォレットです。</p>
+      <p>インストールが完了したら、ネットワークをRinkeby Test Networkに設定します。</p>
+      <div><img src="img/how1.png" alt="" width="300px"></div>
+      
+    <h2>2. Get ETH</h2>
+      <p>画像をブロックチェーンに登録する際に、少額のETHが必要になります</p>
+      <p><span><a href="https://www.rinkeby.io/#faucet">Rinkeby faucet</a></span>からRinkebyのETHを手に入れます。</p>
+      <p>アカウントアドレスをSNSに投稿します。</p>
+      <div><img src="img/how2.png" alt="" width="300px"></div>
+      <p>そのURLをRinkeby faucetに入力する事でRinkebyのETHを手に入れる事が出来ます。</p>
+      <div><img src="img/how3.png" alt="" width="300px"></div>
+      
+    <h2>3. Publish Image</h2>
+      <p>販売したい画像を登録し、タイトル、価格を入力します。</p>
+      <p>入力完了後、Publishボタンを押すとMetaMaskが起動するので、承認ボタンを押すとGas(少額の手数料)を支払うことで画像をブロックチェーンに登録できます。</p>
+      <video src="video/publish_s.mov" autoplay width="600px"></video>
+    <h2>4. Buy Image</h2>
+      <p>Marketに移動し、購入したい画像を選択します。</p>
+      <p>buyボタンを押すとMetaMaskが起動するので、承認ボタンを押すと指定の金額とGas(少額の手数料)を支払うことで画像を購入する事が出来ます。</p>
+      <video src="video/buy_s.mov" autoplay width="600px"></video>
+    <h2>5. Sell Image</h2>
+      <p>購入した画像は転売する事が可能です。</p>
+      <p>Marketに移動し、購入したい画像を選択します。</p>
+      <p>価格を入力しSellボタンを押すとMetaMaskが起動するので、承認ボタンを押すとGas(少額の手数料)を支払うことで画像をマーケットに出品する事が出来ます。</p>
+      <p>キャンセルしたい場合は、キャンセルボタンを押すとMetaMaskが起動するので、承認ボタンを押すとGas(少額の手数料)を支払うことでキャンセルする事が出来ます。</p>
+      <video src="video/sell.mov" autoplay width="600px"></video>
   </div>
 </script>
 
@@ -536,6 +576,10 @@ var Load = {
     template: '#load',
     }
 
+var Howtouse = {
+    template: '#howtouse',
+    }
+
 
 var router = new VueRouter({
   // 各ルートにコンポーネントをマッピングします
@@ -650,15 +694,10 @@ var router = new VueRouter({
       component: Load
     },
     {
-      path: '/user/:itemId',
-      name:'user',
-      component: {
-        template: `
-        <div>ユーザーIDは {{ $route.params.itemId }}</div><div>{{ name }}</div>
-        <router-link to="/market">戻る</router-link>
-        `
-      }
-    }
+      path: '/howtouse',
+      name:'howtouse',
+      component: Howtouse
+    },
   ]
 })
 
@@ -726,7 +765,7 @@ var app = new Vue({
                   seller: data.seller,
                   price: data.price /1000000000000000000,
                 })
-                console.log(items)
+                // console.log(items)
                 $('#example3').progress('increment');
                 
               }.bind(this))
@@ -734,6 +773,7 @@ var app = new Vue({
                 console.log(error)
               })
             }
+        console.log('getdata')
         router.push('top')
         
     }
