@@ -14,6 +14,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="You can publish your Digital content as ERC721 token on Ethereum platform">
+  <meta name="author" content="kohei tanaka">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Dappic" />
+  <meta name="twitter:description" content="You can publish your Digital content as ERC721 token on Ethereum platform" />
+  <meta name="twitter:image" content="https://ipfs.io/ipfs/QmNcmr4QxmMYsvq7FYWTsGf34e534Wr68oUwDvR1ykkQ6S">
+
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.rawgit.com/balzss/luxbar/ae5835e2/build/luxbar.min.css">
   <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
@@ -46,13 +56,6 @@
                 </ul>
             </div>
         </div>
-        <!-- <li v-for="n in even(numbers)">{{ n }}</li> -->
-        <!-- <li v-for="n in evenNumbers">{{ n }}</li> -->
-        
-        
-        <!-- リンク先を `to` プロパティに指定します -->
-        <!-- テスト -->
-        <!-- デフォルトで <router-link> は `<a>` タグとしてレンダリングされます -->
         
         <div class="main_wrap">
           
@@ -63,13 +66,6 @@
         
     </div>
 
-<!-- <script src="https://cdn.jsdelivr.net/vue/2.0.3/vue.min.js"></script> -->
-<!-- <script src="https://cdn.jsdelivr.net/vue.router/2.0.1/vue-router.min.js"></script> -->
-
-
-<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script> -->
-<!-- <script src="https://unpkg.com/vue/dist/vue.js"></script>
-<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script> -->
 
 <script src="https://unpkg.com/vue@2.4.2/dist/vue.min.js"></script>
 <script src="https://unpkg.com/vue-router@2.7.0/dist/vue-router.min.js"></script>
@@ -79,7 +75,6 @@
 <script src="js/contract_abi.js"></script>
 <script src="js/buffer.js"></script>
 <script src="js/ipfs.js"></script>
-<!-- <script src="js/data.js"></script> -->
 <script src="js/start.js"></script>
 <script src="js/start_publish.js"></script>
 <script src="js/start_market.js"></script>
@@ -127,7 +122,6 @@
         <div class="row">
           <div class="center aligned column fuwat">
             <router-link to="/howtouse" class="ui huge button ">How to Use</router-link>
-            <!-- <a href="/publish" class="ui huge button">Get Started</a> -->
           </div>
         </div>
       </div>
@@ -152,16 +146,9 @@
     
       <div class="ui inverted vertical footer segment">
           <div class="ui center aligned container">
-            <!-- <div class="ui stackable inverted divided grid">
-              
-              <div class="seven wide column">
-                <h4 class="ui inverted header">Footer Header</h4>
-                <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
-              </div>
-            </div> -->
             <div class="ui inverted section divider"></div>
             <div>Dappic</div>
-            <!-- <img src="img/1.png" class="ui centered mini image"> -->
+            
             <div class="ui horizontal inverted small divided link list">
               <router-link to="/sitemap" class="item">Site Map</router-link>
               <router-link to="/contact" class="item">Contact Us</router-link>
@@ -177,12 +164,7 @@
 
 <!-- loadのテンプレート -->
 <script type="text/x-template" id="load">
-  <!-- <div class="ui segment1 load_main">
-      <div class="ui inverted dimmer">
-        <div class="ui text loader">load<br><br>Please wait just moment</div>
-      </div>
-      <div>test</div>
-  </div> -->
+ 
   <div class="ui teal progress" id="example3">
       <div class="bar">
         <div class="progress"></div>
@@ -639,7 +621,7 @@ var router = new VueRouter({
       // },
 
       beforeEnter: function(to, from, next){
-        //クリックしたidを引っ張ってくるのが難しかったんだ。
+        //クリックしたidを引っ張ってくるのが難しかった
         //routerでは値の受け渡しは出来ない、
         // console.log(name)
         // console.log(userAccount)
