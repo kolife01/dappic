@@ -8,7 +8,7 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', 'UA-91632900-5');
+    gtag('config', 'UA-91632900-5',{'page_path': ''});
   </script>
 
   <meta charset="UTF-8">
@@ -51,8 +51,6 @@
                     <li class="luxbar-item"><router-link to="/publish">Publish</router-link></li>
                     <li class="luxbar-item"><router-link to="/market">Market</router-link></li>
                     <li class="luxbar-item"><router-link to="/mypage">Mypage</router-link></li>
-                   
-                    
                 </ul>
             </div>
         </div>
@@ -65,7 +63,6 @@
 
         
     </div>
-
 
 <script src="https://unpkg.com/vue@2.4.2/dist/vue.min.js"></script>
 <script src="https://unpkg.com/vue-router@2.7.0/dist/vue-router.min.js"></script>
@@ -683,6 +680,9 @@ var router = new VueRouter({
   ]
 })
 
+router.afterEach((to, from) => {
+  gtag('config', 'UA-91632900-5', {'page_path': to.path});
+})
 
 var items =[
 
